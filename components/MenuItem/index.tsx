@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/link-passhref */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MenuItem as MenuItemType } from "../../constants/menu-items";
-import { MenuItemContainer } from "./MenuItem.styles";
-import MenuItemsList from "../MenuItemsList";
-import ExpandIcon from "../ExpandIcon";
 import { useState } from "react";
+import { MenuItem as MenuItemType } from "../../constants/menu-items";
+import ExpandIcon from "../ExpandIcon";
+import MenuItemsList from "../MenuItemsList";
+import { MenuItemContainer } from "./MenuItem.styles";
 
 type MenuItemProps = {
   menuItem: MenuItemType;

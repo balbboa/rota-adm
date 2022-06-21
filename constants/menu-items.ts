@@ -1,7 +1,4 @@
-import {
-  AccountBalanceWallet, House, InsertInvitation,
-  LocalDining
-} from "@styled-icons/material";
+import { House, InsertInvitation } from "@styled-icons/material";
 import React from "react";
 
 const MENU_OPTIONS: MenuOption[] = [
@@ -11,7 +8,7 @@ const MENU_OPTIONS: MenuOption[] = [
     url: "/dashboard",
   },
   {
-    name: "Minhas Escalas",
+    name: "Escala de serviço",
     icon: InsertInvitation,
     url: "/escalas",
     // subItems: [
@@ -27,10 +24,10 @@ const MENU_OPTIONS: MenuOption[] = [
     //   },
     // ],
   },
-  {
-    name: "Meus Vales",
-    icon: LocalDining,
-    url: "/vales",
+  // {
+  //   name: "Meus Vales",
+  //   icon: LocalDining,
+  //   url: "/vales",
     // subItems: [
     //   {
     //     name: "Corporate",
@@ -50,12 +47,12 @@ const MENU_OPTIONS: MenuOption[] = [
     //     ],
     //   },
     // ],
-  },
-  {
-    name: "Minhas Diárias",
-    icon: AccountBalanceWallet,
-    url: "/diarias",
-  },
+  // },
+  // {
+  //   name: "Minhas Diárias",
+  //   icon: AccountBalanceWallet,
+  //   url: "/diarias",
+  // },
   // {
   //   name: "Marcar DO",
   //   icon: Person,

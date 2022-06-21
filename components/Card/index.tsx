@@ -3,10 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Image from 'next/image';
 import Link from "next/link";
-import * as React from 'react';
 import Calendar from '../../public/calendar.png';
-import Credit from '../../public/credit-card.png';
-import Meal from '../../public/meal.png';
 import { Container, CustomCard, TextCard } from './Card.styles';
 
 
@@ -30,7 +27,7 @@ export default function DashboardCards() {
                 </CustomCard>
             </Link>
 
-            <Link href="/vales">
+            {/* <Link href="/vales">
                 <CustomCard>
                     <Card sx={{ maxWidth: 345 }}>
                         <CardContent>
@@ -62,7 +59,7 @@ export default function DashboardCards() {
                         </CardContent>
                     </Card>
                 </CustomCard>
-            </Link>
+            </Link> */}
 
             {/* <Link href="/marcacao">
                 <CustomCard>

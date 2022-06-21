@@ -9,6 +9,16 @@ export const Form = styled.form`
     background-color: #001e3c;
   }
 
+  div.add {
+    display: flex;
+    margin-left: auto;
+    padding: 10px;
+    background-color: #001e3c;
+    cursor: pointer;
+    color: #ffffff;
+    border-radius: 100%;
+  }
+
   @media(min-width: 992px) {   
     flex-direction: row;  
     align-items: center;
