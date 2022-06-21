@@ -2,10 +2,16 @@
 import { Button, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import { Form } from '../Form/Form.Styles';
-import { CardEscala, Column, Container, Row } from './Card.styles';
+import { CardEscala, Column, Row } from './Card.styles';
 
 
 export default function AddCards() {
+
+    let card: any = "";
+
+    if (typeof document !== "undefined") {
+        card = document.getElementById("card");
+    }
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -20,10 +26,13 @@ export default function AddCards() {
         date = today
     }
 
+    function SetActiveDiv() {
+        card.classList.add("active");
+    }
+
     return (
-        <Container>
             <CardEscala>
-                <Card className='card'>
+                <Card onClick={SetActiveDiv} id="card" className='card'>
                     <Form>
                         <Column>
                             <Row>
@@ -67,7 +76,7 @@ export default function AddCards() {
                                 />
                             </Row>
                             <Row>
-                            <TextField
+                                <TextField
                                     fullWidth
                                     name="obs"
                                     label="Observação"
@@ -87,6 +96,5 @@ export default function AddCards() {
                     </Form>
                 </Card>
             </CardEscala>
-        </Container>
     );
 }

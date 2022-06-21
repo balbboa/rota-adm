@@ -5,11 +5,15 @@ export const CardEscala = styled.div`
     div.card {
       padding: 20px;
       border-radius: 25px;
-      border-left: 10px solid #001E3C;
+      background-color: #D6D6D6;
 
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
       -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    }
+    div.active {
+      border-left: 10px solid #001E3C;
+      background-color: #ffffff;
     }
   }
 
@@ -21,7 +25,10 @@ export const CardEscala = styled.div`
 
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
-      -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);      
+      -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    }
+    div.active {
+      border-left: 0px !important;
     }
   }
 
@@ -31,10 +38,11 @@ export const CardEscala = styled.div`
       border-radius: 25px;
       border-left: 10px solid #001E3C;
 
-      box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-      -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-      -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);  
     }
+
   }
 `;
 
@@ -49,6 +57,10 @@ export const Row = styled.div`
   margin-bottom: 20px;
   align-items: center;
   justify-content: center;
+
+  div {
+    margin-right: 10px;
+  }
 
   :last-child{
     margin-bottom: 0px;
