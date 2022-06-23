@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/link-passhref */
 import { Alert, Button, Chip, TextField } from "@mui/material";
 import { GridColDef } from '@mui/x-data-grid';
 import { Add } from "@styled-icons/material/Add";
 import axios from "axios";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Container from "../../components/Container";
 import { Tittle } from "../../components/Container/Container.Styles";
@@ -152,11 +152,9 @@ function Escalas() {
         >
           Consultar
         </Button>
-        <Link href="/escalas/add-escala">
-          <div className="add" >
-            <Add size={20} />
-          </div>
-        </Link>
+        <a className="add" href="/escalas/add-escala">
+          <Add size={20} />
+        </a>
       </Form>
       {state == false ? (
         <Alert sx={{ my: 2 }} variant="filled" severity="error">{erro?.msg}</Alert>

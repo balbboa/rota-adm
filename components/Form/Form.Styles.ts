@@ -9,7 +9,7 @@ export const Form = styled.form`
     background-color: #001e3c;
   }
 
-  div.add {
+  .add {
     display: flex;
     margin-left: auto;
     padding: 10px;
