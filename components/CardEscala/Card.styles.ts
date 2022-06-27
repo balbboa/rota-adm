@@ -12,6 +12,17 @@ export const CardEscala = styled.div`
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     }
+    div.card-AddPosto {
+      padding: 20px;
+      border-radius: 25px;
+      background-color: #d6d6d6;
+      margin-top: 20px;
+
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    }
+    
     div.active {
       border-left: 10px solid #001e3c;
       background-color: #ffffff;
@@ -20,6 +31,15 @@ export const CardEscala = styled.div`
 
   @media (min-width: 1400px) {
     div.card {
+      padding: 20px;
+      border-radius: 25px;
+      border-left: 10px solid #001e3c;
+
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    }
+    div.card-AddPosto {
       padding: 20px;
       border-radius: 25px;
       border-left: 10px solid #001e3c;

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardPosto from "../../components/CardAddPosto";
 import CardInfo from "../../components/CardEscala";
 import { Row } from "../../components/CardEscala/Card.styles";
@@ -11,9 +11,17 @@ function AddEscalas() {
 
   const [postos, setPostos] = useState<any>([]);
 
-  function AddPosto(){
+  function AddPosto() {
     setPostos(postos?.concat(<CardPosto key={postos.length} />));
   }
+
+  useEffect(() => {
+
+  const cardsPosto: any | null = document.getElementById("postos")?.getElementsByClassName("card")
+  for (let i = 0; i < cardsPosto.length; i++) {
+    cardsPosto[i].id = i;
+  }
+  })
 
   return (
     <Container title="Adicionar Escala">
@@ -27,7 +35,7 @@ function AddEscalas() {
           Adicionar Posto
         </Button>
       </Row>
-      {postos}
+      <div id="postos">{postos}</div>
     </Container>
   );
 }

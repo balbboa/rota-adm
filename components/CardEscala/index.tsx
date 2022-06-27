@@ -1,17 +1,12 @@
 /* eslint-disable @next/next/link-passhref */
 import { TextField } from '@mui/material';
 import Card from '@mui/material/Card';
+import { useEffect } from 'react';
 import { Form } from '../Form/Form.Styles';
 import { CardEscala, Column, Row } from './Card.styles';
 
 
 export default function CardInfo() {
-
-    let card: any = "";
-
-    if (typeof window !== "undefined") {
-        card = document.getElementById("card");
-    }
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -26,25 +21,23 @@ export default function CardInfo() {
         date = today
     }
 
-    var open = false
-
-    var activeCard = function () {
-        card.classList.add("active");
-        open = true
-    }
-    var deactiveCard = function () {
-        card.classList.remove("active");
-        open = false
-    }
-
-    function SetActiveDiv() {
-        var toggle = open ? deactiveCard : activeCard;
-        toggle();
-    }
+    useEffect(() => {
+        const card: any | null = document.getElementById("card");
+        // Client-side-only code
+        window.addEventListener('click', function (e) {
+            if (card?.contains(e.target)) {
+                // Clicked in box
+                card?.classList.add('active');
+            } else {
+                // Clicked outside the box
+                card?.classList.remove('active');
+            }
+        });
+    })
 
     return (
         <CardEscala>
-            <Card onClick={SetActiveDiv} id="card" className='card'>
+            <Card id="card" className='card'>
                 <Form>
                     <Column>
                         <Row>

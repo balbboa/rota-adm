@@ -1,16 +1,11 @@
 /* eslint-disable @next/next/link-passhref */
 import { TextField } from '@mui/material';
 import Card from '@mui/material/Card';
+import { useEffect } from 'react';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
 import { Form } from '../Form/Form.Styles';
 
-export default function CardNaoAutoFuncao() {
-
-    let card: any = "";
-
-    if (typeof window !== "undefined") {
-        card = document.getElementById("card-posto");
-    }
+export default function CardNaoAutoFuncao(id) {
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -25,13 +20,28 @@ export default function CardNaoAutoFuncao() {
         date = today
     }
 
-    function SetActiveDiv() {
-        card.classList.add("active");
-    }
+    useEffect(() => {
+        const cardNaoAuto: any | null = document.getElementById("card-naoauto");
+        // Client-side-only code
+        window.addEventListener('click', function (e) {
+            if (cardNaoAuto?.contains(e.target)) {
+                // Clicked in box
+                cardNaoAuto?.classList.add('active');
+            } else {
+                // Clicked outside the box
+                cardNaoAuto?.classList.remove('active');
+            }
+        });
+
+        const cardsEscala: any | null = document.getElementById("card-escala")?.getElementsByClassName("card")
+        for (let i = 0; i < cardsEscala.length; i++) {
+            cardsEscala[i].id = i;
+        }
+    })
 
     return (
-        <CardEscala>
-            <Card onClick={SetActiveDiv} id="card-posto" className='card'>
+        <CardEscala id='card-escala'>
+            <Card id="card-naoauto" className='card'>
                 <Form>
                     <Column>
                         <Row>

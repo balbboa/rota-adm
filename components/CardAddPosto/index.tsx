@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/link-passhref */
 import { Button, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardAutoFuncao from '../CardAddAutoFunc';
 import CardNaoAutoFuncao from '../CardAddNaoAutoFunc';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
@@ -11,11 +11,6 @@ export default function CardPosto() {
 
     const [funcoes, setFuncoes] = useState<any>([]);
 
-    let card: any = "";
-
-    if (typeof window !== "undefined") {
-        card = document.getElementById("card-posto");
-    }
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -23,17 +18,31 @@ export default function CardPosto() {
     let date
     try {
         const previewStart = sessionStorage.getItem('saveInitDate-Escalas')
-
         date = previewStart ? previewStart : today
     }
     catch {
         date = today
     }
 
-    function SetActiveDiv() {
-        card.classList.add("active");
-    }
+    useEffect(() => {
+        const cardposto: any | null = document.getElementById("card-posto");
 
+        // Client-side-only code
+        window.addEventListener('click', function (e) {
+            if (cardposto?.contains(e.target)) {
+                // Clicked in box
+                cardposto?.classList.add('active');
+            } else {
+                // Clicked outside the box
+                cardposto?.classList.remove('active');
+            }
+        });
+
+        const cardsfuncoes: any | null = document.getElementById("funcoes")?.getElementsByClassName("card")
+        for (let i = 0; i < cardsfuncoes.length; i++) {
+            cardsfuncoes[i].id = i;
+        }
+    })
 
     function AddFuncaoAuto() {
         setFuncoes(funcoes?.concat(<CardAutoFuncao key={funcoes.length} />));
@@ -45,7 +54,7 @@ export default function CardPosto() {
 
     return (
         <CardEscala>
-            <Card onClick={SetActiveDiv} id="card-posto" className='card'>
+            <Card id="card-posto" className='card'>
                 <Form>
                     <Column>
                         <Row>
@@ -153,7 +162,7 @@ export default function CardPosto() {
                                 Adicionar função não autoescalável
                             </Button>
                         </Row>
-                        <Column>{funcoes}</Column>
+                        <Column id='funcoes'>{funcoes}</Column>
                     </Column>
                 </Form>
             </Card>
