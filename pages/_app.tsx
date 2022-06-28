@@ -1,20 +1,28 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
-import { theme } from "../styles/theme";
-import { AuthContext, AuthProvider } from "../contexts/AuthContext"
-import React from "react";
 import Routes from "../components/Routes";
-import { useRouter } from "next/router";
+import { AuthProvider } from "../contexts/AuthContext";
+import "../styles/globals.css";
+import { theme } from "../styles/theme";
+
+function SafeHydrate({ children }) {
+  return (
+    <div suppressHydrationWarning>
+      {typeof window === 'undefined' ? null : children}
+    </div>
+  )
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
-    <AuthProvider >
-      <ThemeProvider theme={theme}>
-        <Routes Component={Component} {...pageProps}></Routes>
-      </ThemeProvider>
-    </AuthProvider>
+    <SafeHydrate>
+      <AuthProvider >
+        <ThemeProvider theme={theme}>
+          <Routes Component={Component} {...pageProps}></Routes>
+        </ThemeProvider>
+      </AuthProvider>
+    </SafeHydrate>
   );
 }
 export default MyApp;

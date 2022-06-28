@@ -21,27 +21,29 @@ export default function CardAutoFuncao(id) {
     }
 
     useEffect(() => {
-        const cardAutoFunc: any | null = document.getElementById("card-auto-func");
+
+        const cardAutoFunc: any | null = document.getElementById("card-auto")
         // Client-side-only code
         window.addEventListener('click', function (e) {
-            if (cardAutoFunc?.contains(e.target)) {
-                // Clicked in box
-                cardAutoFunc?.classList.add('active');
-            } else {
-                // Clicked outside the box
-                cardAutoFunc?.classList.remove('active');
+            if (typeof cardAutoFunc === 'object' && cardAutoFunc !== null && 'contains' in cardAutoFunc) {
+                if (cardAutoFunc?.contains(e.target)) {
+                    // Clicked in box
+                    cardAutoFunc?.classList.add('active');
+                } else {
+                    // Clicked outside the box
+                    cardAutoFunc?.classList.remove('active');
+                }
             }
         });
 
-        const cardsEscala: any | null = document.getElementById("card-escala")?.getElementsByClassName("card")
-        for (let i = 0; i < cardsEscala.length; i++) {
-            cardsEscala[i].id = i;
+        for (let i = 0; i < cardAutoFunc?.length; i++) {
+            cardAutoFunc[i].id = `funcao${i}`;
         }
     })
 
     return (
         <CardEscala id='card-escala'>
-            <Card id="card-auto-func" className='card'>
+            <Card id='card-auto' className='card'>
                 <Form>
                     <Column>
                         <Row>

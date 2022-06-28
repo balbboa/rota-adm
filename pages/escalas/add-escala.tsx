@@ -19,7 +19,7 @@ function AddEscalas() {
 
   const cardsPosto: any | null = document.getElementById("postos")?.getElementsByClassName("card")
   for (let i = 0; i < cardsPosto.length; i++) {
-    cardsPosto[i].id = i;
+    cardsPosto[i].id = `posto${i}`;
   }
   })
 

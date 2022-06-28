@@ -21,27 +21,28 @@ export default function CardNaoAutoFuncao(id) {
     }
 
     useEffect(() => {
-        const cardNaoAuto: any | null = document.getElementById("card-naoauto");
+        const cardNaoAuto: any | null = document.getElementById("card-naoauto")
         // Client-side-only code
         window.addEventListener('click', function (e) {
-            if (cardNaoAuto?.contains(e.target)) {
-                // Clicked in box
-                cardNaoAuto?.classList.add('active');
-            } else {
-                // Clicked outside the box
-                cardNaoAuto?.classList.remove('active');
+            if (typeof cardNaoAuto === 'object' && cardNaoAuto !== null && 'contains' in cardNaoAuto) {
+                if (cardNaoAuto?.contains(e.target)) {
+                    // Clicked in box
+                    cardNaoAuto?.classList.add('active');
+                } else {
+                    // Clicked outside the box
+                    cardNaoAuto?.classList.remove('active');
+                }
             }
         });
 
-        const cardsEscala: any | null = document.getElementById("card-escala")?.getElementsByClassName("card")
-        for (let i = 0; i < cardsEscala.length; i++) {
-            cardsEscala[i].id = i;
+        for (let i = 0; i < cardNaoAuto?.length; i++) {
+            cardNaoAuto[i].id = `funcao${i}`;
         }
     })
 
     return (
         <CardEscala id='card-escala'>
-            <Card id="card-naoauto" className='card'>
+            <Card id='card-naoauto' className='card'>
                 <Form>
                     <Column>
                         <Row>
