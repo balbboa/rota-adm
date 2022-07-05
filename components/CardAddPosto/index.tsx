@@ -28,29 +28,30 @@ export default function CardPosto() {
 
         // Client-side-only code
         window.addEventListener('click', function (e) {
-            if (typeof cardposto === 'object' && cardposto !== null && 'contains' in cardposto) {
-                if (cardposto?.contains(e.target)) {
-                    // Clicked in box
-                    cardposto?.classList.add('active');
-                } else {
-                    // Clicked outside the box
-                    cardposto?.classList.remove('active');
-                }
+            if (cardposto?.contains(e.target)) {
+                // Clicked in box
+                cardposto?.classList.add('active');
+            } else {
+                // Clicked outside the box
+                cardposto?.classList.remove('active');
             }
         });
+        
+        for (let a = 0; a < 100; a++) {
+            const cardsfuncoes: any | null = document.getElementById(`posto${a}`)?.getElementsByClassName("teste")
 
-        const cardsfuncoes: any | null = document.getElementById("funcoes")?.getElementsByClassName("card")
-        for (let i = 0; i < cardsfuncoes?.length; i++) {
-            cardsfuncoes[i].id = `funcao${i}`;
+            for (let i = 0; i < cardsfuncoes?.length; i++) {
+                cardsfuncoes[i].id = `funcao${Math.floor(Math.random() * 1000)}`;
+            }
         }
     })
 
     function AddFuncaoAuto() {
-        setFuncoes(funcoes?.concat(<CardAutoFuncao key={funcoes.length} />));
+        setFuncoes(funcoes?.concat(<CardAutoFuncao />));
     }
 
     function AddFuncaoNaoAuto() {
-        setFuncoes(funcoes?.concat(<CardNaoAutoFuncao key={funcoes.length} />));
+        setFuncoes(funcoes?.concat(<CardNaoAutoFuncao />));
     }
 
     return (
@@ -163,7 +164,7 @@ export default function CardPosto() {
                                 Adicionar função não autoescalável
                             </Button>
                         </Row>
-                        <Column id="funcoes">{funcoes}</Column>
+                        <Column>{funcoes}</Column>
                     </Column>
                 </Form>
             </Card>

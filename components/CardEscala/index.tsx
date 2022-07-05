@@ -25,7 +25,6 @@ export default function CardInfo() {
         const card: any | null = document.getElementById("card");
         // Client-side-only code
         window.addEventListener('click', function (e) {
-            if (typeof card === 'object' && card !== null && 'contains' in card) {
                 if (card?.contains(e.target)) {
                     // Clicked in box
                     card?.classList.add('active');
@@ -33,7 +32,7 @@ export default function CardInfo() {
                     // Clicked outside the box
                     card?.classList.remove('active');
                 }
-            }
+        
         });
     })
 

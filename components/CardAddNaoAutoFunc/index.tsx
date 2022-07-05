@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
 import { Form } from '../Form/Form.Styles';
 
-export default function CardNaoAutoFuncao(id) {
+export default function CardNaoAutoFuncao() {
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -24,7 +24,6 @@ export default function CardNaoAutoFuncao(id) {
         const cardNaoAuto: any | null = document.getElementById("card-naoauto")
         // Client-side-only code
         window.addEventListener('click', function (e) {
-            if (typeof cardNaoAuto === 'object' && cardNaoAuto !== null && 'contains' in cardNaoAuto) {
                 if (cardNaoAuto?.contains(e.target)) {
                     // Clicked in box
                     cardNaoAuto?.classList.add('active');
@@ -32,12 +31,8 @@ export default function CardNaoAutoFuncao(id) {
                     // Clicked outside the box
                     cardNaoAuto?.classList.remove('active');
                 }
-            }
+            
         });
-
-        for (let i = 0; i < cardNaoAuto?.length; i++) {
-            cardNaoAuto[i].id = `funcao${i}`;
-        }
     })
 
     return (

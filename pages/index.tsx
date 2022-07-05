@@ -73,7 +73,7 @@ function SignIn() {
                   type="password"
                   id="password"
                 />
-                <Button href="/dashboard"
+                <Button
                   type="submit"
                   color="primary"
                   fullWidth
