@@ -37,7 +37,7 @@ export default function CardNaoAutoFuncao() {
 
     return (
         <CardEscala id='card-escala'>
-            <Card id='card-naoauto' className='card'>
+            <Card id='card-naoauto' className='card teste'>
                 <Form>
                     <Column>
                         <Row>
