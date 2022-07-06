@@ -12,6 +12,7 @@ export const CardEscala = styled.div`
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     }
+  
     div.card-AddPosto {
       padding: 20px;
       border-radius: 25px;

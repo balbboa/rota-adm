@@ -10,7 +10,7 @@ import { Form } from '../Form/Form.Styles';
 export default function CardPosto() {
 
     const [funcoes, setFuncoes] = useState<any>([]);
-
+// ------------------------------HORA----------------------------------- //
     const curr = new Date();
     curr.setDate(curr.getDate())
     const today = curr.toLocaleDateString('en-CA');
@@ -22,22 +22,18 @@ export default function CardPosto() {
     catch {
         date = today
     }
+// ------------------------------HORA----------------------------------- //
 
     useEffect(() => {
         const cardposto: any | null = document.getElementById("card-posto");
-
-        // Client-side-only code
         window.addEventListener('click', function (e) {
             if (cardposto?.contains(e.target)) {
-                // Clicked in box
                 cardposto?.classList.add('active');
             } else {
-                // Clicked outside the box
                 cardposto?.classList.remove('active');
             }
         });
-        
-        for (let a = 0; a < 100; a++) {
+        for (let a = 0; a < 300; a++) {
             const cardsfuncoes: any | null = document.getElementById(`posto${a}`)?.getElementsByClassName("teste")
 
             for (let i = 0; i < cardsfuncoes?.length; i++) {
