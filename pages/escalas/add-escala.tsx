@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import dynamic from 'next/dynamic';
 import { useEffect, useState } from "react";
 import CardPosto from "../../components/CardAddPosto";
 import CardInfo from "../../components/CardEscala";
@@ -7,12 +6,6 @@ import { Row } from "../../components/CardEscala/Card.styles";
 import Container from "../../components/Container";
 import { Tittle } from "../../components/Container/Container.Styles";
 import withAuth from "../../utils/withAuth";
-
-const DynamicComponentWithNoSSR = dynamic(() =>
-  import('../../components/CardAddPosto'),
-  {
-    ssr: false
-  })
 
 function AddEscalas() {
 
@@ -41,7 +34,9 @@ function AddEscalas() {
           Adicionar Posto
         </Button>
       </Row>
-      <div id="postos">{postos}</div>
+      <div id="postos">
+        {postos}
+      </div>
     </Container>
   );
 }
