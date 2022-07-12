@@ -8,11 +8,12 @@ import { Tittle } from "../../components/Container/Container.Styles";
 import withAuth from "../../utils/withAuth";
 
 function AddEscalas() {
-
   const [postos, setPostos] = useState<any>([]);
+  const [cont, setCont] = useState<any>(0);
 
   function AddPosto() {
-    setPostos(postos?.concat(<CardPosto />));
+    setCont(cont + 1)
+    setPostos(postos?.concat(<CardPosto key={cont} />));
   }
 
   useEffect(() => {

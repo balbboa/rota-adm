@@ -3,16 +3,34 @@ import styled from "styled-components";
 export const CardEscala = styled.div`
   @media (min-width: 992px) and (max-width: 1400px) {
     div.card {
-      padding: 20px;
+      padding: 40px 20px 0 40px;
       border-radius: 25px;
       background-color: #d6d6d6;
-      margin-top: 20px;
+      margin: 30px 0 0 0;
 
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     }
-  
+    div.add {
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      padding: 10px;
+      background-color: #001e3c;
+      cursor: pointer;
+      color: #ffffff;
+      border-radius: 100%;
+    }
+    div.up {
+      right: 95px;
+      margin-top: -3.6rem;
+    }
+    div.down {
+      right: 50px;
+      margin-top: -3.6rem;
+    }
+
     div.card-AddPosto {
       padding: 20px;
       border-radius: 25px;
@@ -23,7 +41,7 @@ export const CardEscala = styled.div`
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     }
-    
+
     div.active {
       border-left: 10px solid #001e3c;
       background-color: #ffffff;
@@ -32,9 +50,10 @@ export const CardEscala = styled.div`
 
   @media (min-width: 1400px) {
     div.card {
-      padding: 20px;
+      padding: 40px 20px 0 40px;
       border-radius: 25px;
       border-left: 10px solid #001e3c;
+      margin: 30px 0 0 0;
 
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
@@ -56,9 +75,10 @@ export const CardEscala = styled.div`
 
   @media (max-width: 992px) {
     div.card {
-      padding: 20px;
+      padding: 40px 20px 0 40px;
       border-radius: 25px;
       border-left: 10px solid #001e3c;
+      margin: 30px 0 0 0;
 
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
       -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
@@ -101,7 +121,7 @@ export const Row = styled.div`
     :hover {
       background-color: #1976d2;
       color: white;
-    } 
+    }
   }
   button.addFunc2 {
     background-color: #001e3c;

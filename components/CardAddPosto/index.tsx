@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/link-passhref */
 import { Button, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
+import { KeyboardArrowDown } from "@styled-icons/material/KeyboardArrowDown";
+import { KeyboardArrowUp } from "@styled-icons/material/KeyboardArrowUp";
 import { useEffect, useState } from 'react';
 import CardAutoFuncao from '../CardAddAutoFunc';
 import CardNaoAutoFuncao from '../CardAddNaoAutoFunc';
@@ -10,11 +12,11 @@ import { Form } from '../Form/Form.Styles';
 export default function CardPosto() {
 
     const [funcoes, setFuncoes] = useState<any>([]);
-// ------------------------------HORA----------------------------------- //
+    // ------------------------------HORA----------------------------------- //
     const curr = new Date();
     curr.setDate(curr.getDate())
     const today = curr.toLocaleDateString('en-CA');
-    let date
+    let date: unknown
     try {
         const previewStart = sessionStorage.getItem('saveInitDate-Escalas')
         date = previewStart ? previewStart : today
@@ -22,7 +24,7 @@ export default function CardPosto() {
     catch {
         date = today
     }
-// ------------------------------HORA----------------------------------- //
+    // ------------------------------HORA----------------------------------- //
 
     useEffect(() => {
         const cardposto: any | null = document.getElementById("card-posto");
@@ -50,9 +52,46 @@ export default function CardPosto() {
         setFuncoes(funcoes?.concat(<CardNaoAutoFuncao />));
     }
 
+    function onClickMoveUPorDOWN() {
+        const btn_moveDOWN: any | null = Array.from(document.getElementsByClassName('ClickDOWN'))
+        const btn_moveUP: any | null = Array.from(document.getElementsByClassName('ClickUP'))
+        btn_moveUP.forEach((onebyone: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+            onebyone.addEventListener('click', ChangePositionUP)
+        })
+        btn_moveDOWN.forEach((onebyone: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+            onebyone.addEventListener('click', ChangePositionDOWN)
+        })
+    }
+
+    const listaPosto: any | null = document.getElementById("postos")
+    
+    function ChangePositionUP(this: any) {
+        const Current = this.parentNode;
+        const Previous = Current.previousElementSibling;
+
+        if (Previous != null) {
+            listaPosto.insertBefore(Current, Previous);
+        } else {
+            alert('cannot Move Further')
+        }
+    }
+
+    function ChangePositionDOWN(this: any) {
+        const Current = this.parentNode;
+        const Next = Current.nextElementSibling;
+
+        if (Next != null) {
+            listaPosto.insertBefore(Next, Current);
+        } else {
+            alert('cannot Move Below')
+        }
+    }
+
     return (
         <CardEscala>
             <Card id="card-posto" className='card'>
+                <div onClick={onClickMoveUPorDOWN} className="add down ClickDOWN"><KeyboardArrowDown size={20} /></div>
+                <div onClick={onClickMoveUPorDOWN} className="add up ClickUP"><KeyboardArrowUp size={20} /></div>
                 <Form>
                     <Column>
                         <Row>
