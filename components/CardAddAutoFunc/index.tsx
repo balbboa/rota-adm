@@ -48,7 +48,7 @@ export default function CardAutoFuncao() {
         })
     }
 
-    const listaFuncao: any | null = document.getElementById("funcoes")
+    const listaFuncao: any | null = document.getElementById("lista-funcoes")
 
     function ChangePositionUP(this: any) {
         const Current = this.parentElement.parentElement.parentElement;

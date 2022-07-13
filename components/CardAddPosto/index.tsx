@@ -197,7 +197,7 @@ export default function CardPosto() {
                                 Adicionar função não autoescalável
                             </Button>
                         </Row>
-                        <ul id='funcoes'>{funcoes}</ul>
+                        <ul id='lista-funcoes'>{funcoes}</ul>
                     </Column>
                 </Form>
             </Card>
