@@ -13,7 +13,7 @@ function AddEscalas() {
 
   function AddPosto() {
     setCont(cont + 1)
-    setPostos(postos?.concat(<CardPosto key={cont} />));
+    setPostos(postos?.concat(<li key={cont}><CardPosto /></li>));
   }
 
   useEffect(() => {
@@ -35,9 +35,9 @@ function AddEscalas() {
           Adicionar Posto
         </Button>
       </Row>
-      <div id="postos">
+      <ul id="postos">
         {postos}
-      </div>
+      </ul>
     </Container>
   );
 }

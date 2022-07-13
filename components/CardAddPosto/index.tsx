@@ -12,6 +12,8 @@ import { Form } from '../Form/Form.Styles';
 export default function CardPosto() {
 
     const [funcoes, setFuncoes] = useState<any>([]);
+    const [cont, setCont] = useState<any>(0);
+
     // ------------------------------HORA----------------------------------- //
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -35,8 +37,8 @@ export default function CardPosto() {
                 cardposto?.classList.remove('active');
             }
         });
-        for (let a = 0; a < 300; a++) {
-            const cardsfuncoes: any | null = document.getElementById(`posto${a}`)?.getElementsByClassName("teste")
+        for (let a = 0; a < 100; a++) {
+            const cardsfuncoes: any | null = document.getElementById(`posto${a}`)?.getElementsByClassName("funcoes")
 
             for (let i = 0; i < cardsfuncoes?.length; i++) {
                 cardsfuncoes[i].id = `funcao${Math.floor(Math.random() * 1000)}`;
@@ -45,45 +47,41 @@ export default function CardPosto() {
     })
 
     function AddFuncaoAuto() {
-        setFuncoes(funcoes?.concat(<CardAutoFuncao />));
+        setCont(cont + 1)
+        setFuncoes(funcoes?.concat(<li key={cont}><CardAutoFuncao /></li>));
     }
 
     function AddFuncaoNaoAuto() {
-        setFuncoes(funcoes?.concat(<CardNaoAutoFuncao />));
+        setCont(cont + 1)
+        setFuncoes(funcoes?.concat(<li key={cont}><CardNaoAutoFuncao /></li>));
     }
 
     function onClickMoveUPorDOWN() {
         const btn_moveDOWN: any | null = Array.from(document.getElementsByClassName('ClickDOWN'))
         const btn_moveUP: any | null = Array.from(document.getElementsByClassName('ClickUP'))
-        btn_moveUP.forEach((onebyone: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+        btn_moveUP.forEach(onebyone => {
             onebyone.addEventListener('click', ChangePositionUP)
         })
-        btn_moveDOWN.forEach((onebyone: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+        btn_moveDOWN.forEach(onebyone => {
             onebyone.addEventListener('click', ChangePositionDOWN)
         })
     }
 
     const listaPosto: any | null = document.getElementById("postos")
-    
-    function ChangePositionUP(this: any) {
-        const Current = this.parentNode;
-        const Previous = Current.previousElementSibling;
 
+    function ChangePositionUP(this: any) {
+        const Current = this.parentElement.parentElement.parentElement;
+        const Previous = Current.previousElementSibling;
         if (Previous != null) {
             listaPosto.insertBefore(Current, Previous);
-        } else {
-            alert('cannot Move Further')
         }
     }
 
     function ChangePositionDOWN(this: any) {
-        const Current = this.parentNode;
+        const Current = this.parentElement.parentElement.parentElement;
         const Next = Current.nextElementSibling;
-
         if (Next != null) {
             listaPosto.insertBefore(Next, Current);
-        } else {
-            alert('cannot Move Below')
         }
     }
 
@@ -199,7 +197,7 @@ export default function CardPosto() {
                                 Adicionar função não autoescalável
                             </Button>
                         </Row>
-                        <Column>{funcoes}</Column>
+                        <ul id='funcoes'>{funcoes}</ul>
                     </Column>
                 </Form>
             </Card>
