@@ -57,8 +57,8 @@ export default function CardPosto() {
     }
 
     function onClickMoveUPorDOWN() {
-        const btn_moveDOWN: any | null = Array.from(document.getElementsByClassName('ClickDOWN'))
-        const btn_moveUP: any | null = Array.from(document.getElementsByClassName('ClickUP'))
+        const btn_moveDOWN = Array.from(document.getElementsByClassName('ClickDOWN'))
+        const btn_moveUP = Array.from(document.getElementsByClassName('ClickUP'))
         btn_moveUP.forEach(onebyone => {
             onebyone.addEventListener('click', ChangePositionUP)
         })
@@ -69,7 +69,7 @@ export default function CardPosto() {
 
     const listaPosto: any | null = document.getElementById("postos")
 
-    function ChangePositionUP(this: any) {
+    function ChangePositionUP(this) {
         const Current = this.parentElement.parentElement.parentElement;
         const Previous = Current.previousElementSibling;
         if (Previous != null) {
@@ -77,7 +77,7 @@ export default function CardPosto() {
         }
     }
 
-    function ChangePositionDOWN(this: any) {
+    function ChangePositionDOWN(this) {
         const Current = this.parentElement.parentElement.parentElement;
         const Next = Current.nextElementSibling;
         if (Next != null) {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CardEscala = styled.div`
   @media (min-width: 992px) and (max-width: 1400px) {
     div.card {
-      padding: 40px 20px 0 40px;
+      padding: 40px 20px 20px 40px;
       border-radius: 25px;
       background-color: #d6d6d6;
       margin: 30px 0 0 0;
