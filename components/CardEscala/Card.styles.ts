@@ -22,12 +22,12 @@ export const CardEscala = styled.div`
       color: #ffffff;
       border-radius: 100%;
     }
-    div.up {
-      right: 95px;
+    div.delete {
+      right: 50px;
       margin-top: -3.6rem;
     }
-    div.down {
-      right: 50px;
+    div.delete2 {
+      right: 100px;
       margin-top: -3.6rem;
     }
 
@@ -95,7 +95,7 @@ export const Container = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+  margin: 20px 0 20px 0;
   align-items: center;
   justify-content: center;
 

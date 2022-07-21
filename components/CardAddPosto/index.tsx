@@ -1,18 +1,30 @@
 /* eslint-disable @next/next/link-passhref */
 import { Button, TextField } from '@mui/material';
 import Card from '@mui/material/Card';
-import { KeyboardArrowDown } from "@styled-icons/material/KeyboardArrowDown";
-import { KeyboardArrowUp } from "@styled-icons/material/KeyboardArrowUp";
+import { DeleteForever } from "@styled-icons/material/DeleteForever";
 import { useEffect, useState } from 'react';
+import {
+    DragDropContext, Draggable, Droppable
+} from "react-beautiful-dnd";
 import CardAutoFuncao from '../CardAddAutoFunc';
 import CardNaoAutoFuncao from '../CardAddNaoAutoFunc';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
 import { Form } from '../Form/Form.Styles';
+// Utils
+import {
+    getEmptyGroup, getEmptyTask, move,
+    reorder
+} from "../../utils/utils.js";
 
-export default function CardPosto() {
+export const initialNewTaskData = { isAdding: false, groupId: null };
+
+export default function CardPosto({ handleDeleteTask }) {
 
     const [funcoes, setFuncoes] = useState<any>([]);
     const [cont, setCont] = useState<any>(0);
+    const [state, setState] = useState([getEmptyGroup("No Status", false)] as any[]);
+    const [newTask, setNewTask] = useState(initialNewTaskData);
+    const [cardDiff, setCardDiff] = useState<any>();
 
     // ------------------------------HORA----------------------------------- //
     const curr = new Date();
@@ -37,59 +49,81 @@ export default function CardPosto() {
                 cardposto?.classList.remove('active');
             }
         });
-        for (let a = 0; a < 100; a++) {
-            const cardsfuncoes: any | null = document.getElementById(`posto${a}`)?.getElementsByClassName("funcoes")
-
-            for (let i = 0; i < cardsfuncoes?.length; i++) {
-                cardsfuncoes[i].id = `funcao${Math.floor(Math.random() * 1000)}`;
-            }
-        }
     })
 
-    function AddFuncaoAuto() {
-        setCont(cont + 1)
-        setFuncoes(funcoes?.concat(<li key={cont}><CardAutoFuncao /></li>));
-    }
-
-    function AddFuncaoNaoAuto() {
-        setCont(cont + 1)
-        setFuncoes(funcoes?.concat(<li key={cont}><CardNaoAutoFuncao /></li>));
-    }
-
-    function onClickMoveUPorDOWN() {
-        const btn_moveDOWN = Array.from(document.getElementsByClassName('ClickDOWN'))
-        const btn_moveUP = Array.from(document.getElementsByClassName('ClickUP'))
-        btn_moveUP.forEach(onebyone => {
-            onebyone.addEventListener('click', ChangePositionUP)
-        })
-        btn_moveDOWN.forEach(onebyone => {
-            onebyone.addEventListener('click', ChangePositionDOWN)
-        })
-    }
-
-    const listaPosto: any | null = document.getElementById("postos")
-
-    function ChangePositionUP(this) {
-        const Current = this.parentElement.parentElement.parentElement;
-        const Previous = Current.previousElementSibling;
-        if (Previous != null) {
-            listaPosto.insertBefore(Current, Previous);
+    const onDragEnd = (result) => {
+        const { source, destination } = result;
+        // If dropped outside the list
+        if (!result.destination) {
+            return;
         }
-    }
+        const sInd = source.droppableId;
+        const dInd = destination.droppableId;
 
-    function ChangePositionDOWN(this) {
-        const Current = this.parentElement.parentElement.parentElement;
-        const Next = Current.nextElementSibling;
-        if (Next != null) {
-            listaPosto.insertBefore(Next, Current);
+        if (sInd === dInd) {
+            const selectedGroup = state.filter((group) => group.id === sInd);
+            const reorderedGroup = reorder(
+                selectedGroup,
+                source.index,
+                destination.index
+            );
+            const newState = state.map((group) =>
+                group.id === sInd ? reorderedGroup : group
+            );
+            setState(newState);
+        } else {
+            const fromGroup = state.filter((group) => group.id === sInd);
+            const toGroup = state.filter((group) => group.id === dInd);
+            const result: any | null = move(fromGroup, toGroup, source, destination);
+            const newState = state.map((group) => {
+                if (group.id === sInd) {
+                    return result.source;
+                } else if (group.id === dInd) {
+                    return result.destination;
+                } else {
+                    return group;
+                }
+            });
+            setState(newState);
         }
-    }
+    };
+
+    const handleDeleteCard = (groupId, taskId) => (event) => {
+        event.stopPropagation();
+        if (!(groupId || taskId)) return;
+        const newState = state.map((group) => {
+            const { id, tasks } = group;
+            if (groupId === id) {
+                return {
+                    ...group,
+                    tasks: tasks.filter((task) => !(taskId === task.id)),
+                };
+            }
+            return group;
+        });
+        setState(newState);
+    };
+
+    const addTaskInGroup = (groupId) => {
+        const newState: any = state.map((group) => {
+            const { id, tasks } = group;
+            if (groupId === id) {
+                return { ...group, tasks: [...tasks, getEmptyTask()] };
+            }
+            return group;
+        });
+        setState(newState);
+    };
+
+    const toggleNewTask = (groupId) => () => {
+        addTaskInGroup(groupId);
+        setNewTask({ ...newTask, isAdding: !newTask?.isAdding, groupId });
+    };
 
     return (
         <CardEscala>
             <Card id="card-posto" className='card'>
-                <div onClick={onClickMoveUPorDOWN} className="add down ClickDOWN"><KeyboardArrowDown size={20} /></div>
-                <div onClick={onClickMoveUPorDOWN} className="add up ClickUP"><KeyboardArrowUp size={20} /></div>
+                <div onClick={(event) => handleDeleteTask(event)} className="add delete"><DeleteForever size={20} /></div>
                 <Form>
                     <Column>
                         <Row>
@@ -180,24 +214,78 @@ export default function CardPosto() {
                                 type="text"
                             />
                         </Row>
-                        <Row>
-                            <Button
-                                onClick={AddFuncaoAuto}
-                                className='addFunc'
-                                sx={{ mr: 3 }}
-                                variant="outlined"
-                            >
-                                Adicionar função autoescalável
-                            </Button>
-                            <Button
-                                onClick={AddFuncaoNaoAuto}
-                                className='addFunc2'
-                                variant="contained"
-                            >
-                                Adicionar função não autoescalável
-                            </Button>
-                        </Row>
-                        <ul id='lista-funcoes'>{funcoes}</ul>
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            {state.map((el: any) => {
+                                const {
+                                    id: groupId,
+                                    tasks,
+                                } = el;
+                                return (
+                                    <Droppable key={groupId} droppableId={groupId}>
+                                        {(provided) => (
+                                            <div>
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.droppableProps}
+                                                >
+                                                    {tasks.map((task, index) => {
+                                                        return (
+                                                            <Draggable
+                                                                key={task?.id}
+                                                                draggableId={`draggable-${task?.id}`}
+                                                                index={index}
+                                                            >
+                                                                {(provided) => (
+                                                                    <div
+                                                                        ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        {...provided.dragHandleProps}
+                                                                    >
+                                                                        {cardDiff == true ? (
+                                                                            <CardAutoFuncao
+                                                                                handleDeleteTask={handleDeleteCard(
+                                                                                    groupId,
+                                                                                    task?.id
+                                                                                )} />) : (
+                                                                            <CardNaoAutoFuncao
+                                                                                handleDeleteTask={handleDeleteCard(
+                                                                                    groupId,
+                                                                                    task?.id
+                                                                                )} />
+                                                                        )}
+
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        );
+                                                    })}
+                                                    {provided.placeholder}
+                                                </div>
+                                                <Row>
+                                                    <Button
+                                                        onClick={function (event) { toggleNewTask(groupId); setCardDiff(true) }}
+                                                        className='addFunc'
+                                                        sx={{ mr: 3 }}
+                                                        variant="outlined"
+                                                    >
+                                                        Adicionar função autoescalável
+                                                    </Button>
+                                                    <Button
+                                                        onClick={function (event) { toggleNewTask(groupId); setCardDiff(false) }}
+                                                        className='addFunc2'
+                                                        variant="contained"
+                                                    >
+                                                        Adicionar função não autoescalável
+                                                    </Button>
+                                                </Row>
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                );
+                            })}
+                        </DragDropContext>
+
+
                     </Column>
                 </Form>
             </Card>

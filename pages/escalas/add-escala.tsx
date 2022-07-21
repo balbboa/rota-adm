@@ -19,15 +19,8 @@ import {
 export const initialNewTaskData = { isAdding: false, groupId: null };
 
 function AddEscalas() {
-  const [cont, setCont] = useState<any>(0);
-  const [state, setState] = useState([getEmptyGroup("No Status", false)]);
+  const [state, setState] = useState([getEmptyGroup("No Status", false)] as any[]);
   const [newTask, setNewTask] = useState(initialNewTaskData);
-
-  function AddPosto() {
-    setCont(cont + 1)
-  }
-
-  const listItems = [...Array(cont)].map((_, i) => <CardPosto key={i} />)
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -66,6 +59,22 @@ function AddEscalas() {
     }
   };
 
+  const handleDeleteCard = (groupId, taskId) => (event) => {
+    event.stopPropagation();
+    if (!(groupId || taskId)) return;
+    const newState = state.map((group) => {
+      const { id, tasks } = group;
+      if (groupId === id) {
+        return {
+          ...group,
+          tasks: tasks.filter((task) => !(taskId === task.id)),
+        };
+      }
+      return group;
+    });
+    setState(newState);
+  };
+
   const addTaskInGroup = (groupId) => {
     const newState: any = state.map((group) => {
       const { id, tasks } = group;
@@ -81,22 +90,11 @@ function AddEscalas() {
     addTaskInGroup(groupId);
     setNewTask({ ...newTask, isAdding: !newTask?.isAdding, groupId });
   };
-  
+
   return (
     <Container title="Adicionar Escala">
       <Tittle>Adicionar Escala</Tittle>
       <CardInfo />
-      <Row>
-        <Button className="addPosto"
-          variant="contained"
-          onClick={AddPosto}
-        >
-          Adicionar Posto
-        </Button>
-      </Row>
-      {/* {listItems} */}
-
-
       <DragDropContext onDragEnd={onDragEnd}>
         {state.map((el: any) => {
           const {
@@ -124,7 +122,11 @@ function AddEscalas() {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                             >
-                            <CardPosto />
+                              <CardPosto 
+                              handleDeleteTask={handleDeleteCard(
+                                groupId,
+                                task?.id
+                              )}/>
                             </div>
                           )}
                         </Draggable>
@@ -132,11 +134,14 @@ function AddEscalas() {
                     })}
                     {provided.placeholder}
                   </div>
-                  <button
-                    onClick={toggleNewTask(groupId)}
-                  >
-                    + New Task
-                  </button>
+                  <Row>
+                    <Button className="addPosto"
+                      variant="contained"
+                      onClick={toggleNewTask(groupId)}
+                    >
+                      Adicionar Posto
+                    </Button>
+                  </Row>
                 </div>
               )}
             </Droppable>
