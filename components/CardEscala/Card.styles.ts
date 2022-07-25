@@ -114,7 +114,7 @@ export const Row = styled.div`
     :hover {
       background-color: #1976d2;
     }
-  }
+  } 
   button.addFunc {
     background-color: #6eb1f5;
     margin-right: 1.5rem;
