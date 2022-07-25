@@ -116,7 +116,8 @@ export const Row = styled.div`
     }
   }
   button.addFunc {
-    background-color: transparent;
+    background-color: #6eb1f5;
+    margin-right: 1.5rem;
 
     :hover {
       background-color: #1976d2;

@@ -1,13 +1,8 @@
 /* eslint-disable @next/next/link-passhref */
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import { DeleteForever } from "@styled-icons/material/DeleteForever";
 import { useEffect, useState } from 'react';
-import {
-    DragDropContext, Draggable, Droppable
-} from "react-beautiful-dnd";
-import CardAutoFuncao from '../CardAddAutoFunc';
-import CardNaoAutoFuncao from '../CardAddNaoAutoFunc';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
 import { Form } from '../Form/Form.Styles';
 // Utils
@@ -15,13 +10,13 @@ import {
     getEmptyGroup, getEmptyTask, move,
     reorder
 } from "../../utils/utils.js";
+import ButtonAddAutoFunc from '../ButtonAddAutoFunc';
+import ButtonAddNaoAutoFunc from '../ButtonAddNaoAutoFunc';
 
 export const initialNewTaskData = { isAdding: false, groupId: null };
 
 export default function CardPosto({ handleDeleteTask }) {
 
-    const [funcoes, setFuncoes] = useState<any>([]);
-    const [cont, setCont] = useState<any>(0);
     const [state, setState] = useState([getEmptyGroup("No Status", false)] as any[]);
     const [newTask, setNewTask] = useState(initialNewTaskData);
     const [cardDiff, setCardDiff] = useState<any>();
@@ -104,7 +99,7 @@ export default function CardPosto({ handleDeleteTask }) {
         setState(newState);
     };
 
-    const addTaskInGroup = (groupId) => {
+    const addCardInGroup = (groupId) => {
         const newState: any = state.map((group) => {
             const { id, tasks } = group;
             if (groupId === id) {
@@ -115,8 +110,8 @@ export default function CardPosto({ handleDeleteTask }) {
         setState(newState);
     };
 
-    const toggleNewTask = (groupId) => () => {
-        addTaskInGroup(groupId);
+    const toggleNewCard = (groupId) => () => {
+        addCardInGroup(groupId);
         setNewTask({ ...newTask, isAdding: !newTask?.isAdding, groupId });
     };
 
@@ -214,78 +209,8 @@ export default function CardPosto({ handleDeleteTask }) {
                                 type="text"
                             />
                         </Row>
-                        <DragDropContext onDragEnd={onDragEnd}>
-                            {state.map((el: any) => {
-                                const {
-                                    id: groupId,
-                                    tasks,
-                                } = el;
-                                return (
-                                    <Droppable key={groupId} droppableId={groupId}>
-                                        {(provided) => (
-                                            <div>
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.droppableProps}
-                                                >
-                                                    {tasks.map((task, index) => {
-                                                        return (
-                                                            <Draggable
-                                                                key={task?.id}
-                                                                draggableId={`draggable-${task?.id}`}
-                                                                index={index}
-                                                            >
-                                                                {(provided) => (
-                                                                    <div
-                                                                        ref={provided.innerRef}
-                                                                        {...provided.draggableProps}
-                                                                        {...provided.dragHandleProps}
-                                                                    >
-                                                                        {cardDiff == true ? (
-                                                                            <CardAutoFuncao
-                                                                                handleDeleteTask={handleDeleteCard(
-                                                                                    groupId,
-                                                                                    task?.id
-                                                                                )} />) : (
-                                                                            <CardNaoAutoFuncao
-                                                                                handleDeleteTask={handleDeleteCard(
-                                                                                    groupId,
-                                                                                    task?.id
-                                                                                )} />
-                                                                        )}
-
-                                                                    </div>
-                                                                )}
-                                                            </Draggable>
-                                                        );
-                                                    })}
-                                                    {provided.placeholder}
-                                                </div>
-                                                <Row>
-                                                    <Button
-                                                        onClick={function (event) { toggleNewTask(groupId); setCardDiff(true) }}
-                                                        className='addFunc'
-                                                        sx={{ mr: 3 }}
-                                                        variant="outlined"
-                                                    >
-                                                        Adicionar função autoescalável
-                                                    </Button>
-                                                    <Button
-                                                        onClick={function (event) { toggleNewTask(groupId); setCardDiff(false) }}
-                                                        className='addFunc2'
-                                                        variant="contained"
-                                                    >
-                                                        Adicionar função não autoescalável
-                                                    </Button>
-                                                </Row>
-                                            </div>
-                                        )}
-                                    </Droppable>
-                                );
-                            })}
-                        </DragDropContext>
-
-
+                        <ButtonAddAutoFunc handleDeleteTask></ButtonAddAutoFunc>
+                        <ButtonAddNaoAutoFunc handleDeleteTask></ButtonAddNaoAutoFunc>
                     </Column>
                 </Form>
             </Card>
