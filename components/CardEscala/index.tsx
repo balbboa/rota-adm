@@ -20,6 +20,7 @@ export default function CardInfo() {
     catch {
         date = today
     }
+    
 
     useEffect(() => {
         const card: any | null = document.getElementById("card");
