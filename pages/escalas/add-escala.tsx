@@ -120,9 +120,9 @@ function AddEscalas() {
                             <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
-                              {...provided.dragHandleProps}
                             >
                               <CardPosto 
+                              dragHandleProps={provided.dragHandleProps}
                               handleDeleteTask={handleDeleteCard(
                                 groupId,
                                 task?.id

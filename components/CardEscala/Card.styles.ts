@@ -30,6 +30,11 @@ export const CardEscala = styled.div`
       right: 100px;
       margin-top: -3.6rem;
     }
+    span.drag-icon {
+      display: flex;
+      margin-top: -30px;
+      margin-left: -30px;
+    }
 
     div.card-AddPosto {
       padding: 20px;
