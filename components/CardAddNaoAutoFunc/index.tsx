@@ -2,11 +2,13 @@
 import { TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import { DeleteForever } from "@styled-icons/material/DeleteForever";
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CardEscala, Column, Row } from '../CardEscala/Card.styles';
 import { Form } from '../Form/Form.Styles';
 
 export default function CardNaoAutoFuncao({handleDeleteTask}) {
+    const [isActive, setIsActive] = useState<any>("");
+    const cardfunc1: any | null = useRef(null);
 
     const curr = new Date();
     curr.setDate(curr.getDate())
@@ -22,23 +24,21 @@ export default function CardNaoAutoFuncao({handleDeleteTask}) {
     }
 
     useEffect(() => {
-        const cardNaoAuto: any | null = document.getElementById("card-naoauto")
-        // Client-side-only code
-        window.addEventListener('click', function (e) {
-            if (cardNaoAuto?.contains(e.target)) {
-                // Clicked in box
-                cardNaoAuto?.classList.add('active');
-            } else {
-                // Clicked outside the box
-                cardNaoAuto?.classList.remove('active');
-            }
-
-        });
-    })
+        // only add the event listener when the dropdown is opened
+        if (!isActive) return;
+        function handleClick(event) {
+          if (cardfunc1.current && !cardfunc1.current.contains(event.target)) {
+            setIsActive('');
+          }
+        }
+        window.addEventListener("click", handleClick);
+        // clean up
+        return () => window.removeEventListener("click", handleClick);
+      }, [isActive]);
 
     return (
-        <CardEscala id='card-escala'>
-            <Card id='card-naoauto' className='card funcoes'>
+        <CardEscala>
+            <Card onClick={() => setIsActive('active')} className={`card funcoes ${isActive}`} ref={cardfunc1}>
             <div onClick={(event) => handleDeleteTask(event)} className="add delete2"><DeleteForever size={20} /></div>
                 <Form>
                     <Column>

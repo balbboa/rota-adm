@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import Card from '@mui/material/Card';
 import { DeleteForever } from "@styled-icons/material/DeleteForever";
 import { DragIndicator } from "@styled-icons/material/DragIndicator";
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     DraggableProvidedDragHandleProps
 } from 'react-beautiful-dnd';
@@ -19,7 +19,10 @@ export interface Props {
     handleDeleteTask: any
 }
 
-export default function CardPosto({ handleDeleteTask, dragHandleProps}: Props ) {
+export default function CardPosto({ handleDeleteTask, dragHandleProps }: Props) {
+
+    const [isActive, setIsActive] = useState<any>("");
+    const card: any | null = useRef(null);
 
     // ------------------------------HORA----------------------------------- //
     const curr = new Date();
@@ -36,19 +39,21 @@ export default function CardPosto({ handleDeleteTask, dragHandleProps}: Props ) 
     // ------------------------------HORA----------------------------------- //
 
     useEffect(() => {
-        const cardposto: any | null = document.getElementById("card-posto");
-        window.addEventListener('click', function (e) {
-            if (cardposto?.contains(e.target)) {
-                cardposto?.classList.add('active');
-            } else {
-                cardposto?.classList.remove('active');
-            }
-        });
-    })
+        // only add the event listener when the dropdown is opened
+        if (!isActive) return;
+        function handleClick(event) {
+          if (card.current && !card.current.contains(event.target)) {
+            setIsActive('');
+          }
+        }
+        window.addEventListener("click", handleClick);
+        // clean up
+        return () => window.removeEventListener("click", handleClick);
+      }, [isActive]);
 
     return (
         <CardEscala>
-            <Card id="card-posto" className='card'>
+            <Card onClick={() => setIsActive('active')} className={`card ${isActive}`} ref={card}>
                 <span className='drag-icon' {...dragHandleProps}>
                     <DragIndicator size={30} />
                 </span>
