@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/link-passhref */
 import { Alert, Button, Chip, TextField } from "@mui/material";
 import { GridColDef } from '@mui/x-data-grid';
@@ -153,9 +154,7 @@ function Escalas() {
           Consultar
         </Button>
         <Link href="/escalas/add-escala">
-          <div className="add" >
-            <Add size={20} />
-          </div>
+          <div className="add"><Add size={20} /></div>
         </Link>
       </Form>
       {state == false ? (

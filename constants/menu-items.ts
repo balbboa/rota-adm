@@ -8,7 +8,7 @@ const MENU_OPTIONS: MenuOption[] = [
     url: "/dashboard",
   },
   {
-    name: "Escala de serviço",
+    name: "Escala",
     icon: InsertInvitation,
     url: "/escalas",
     // subItems: [
